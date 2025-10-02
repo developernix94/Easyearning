@@ -15,6 +15,7 @@
             justify-content: flex-start;
             min-height: 100vh;
             padding: 20px;
+            margin: 0;
         }
 
         h1 {
@@ -88,31 +89,37 @@
     <h1>Easy Earning Bot</h1>
 
     <!-- Welcome message -->
-    <div class="welcome-msg" id="welcome">
+    <div class="welcome-msg">
         Welcome! Watch ads below to earn rewards.
     </div>
 
     <div class="ad-container">
         <div class="ad-title">Your Ad</div>
         <div class="ad-box" id="adBox">
-            <!-- Monetag ad script -->
-            <script src="//libtl.com/sdk.js" data-zone="9961805" data-sdk="show_9961805"></script>
+            <!-- Monetag ad will load here -->
         </div>
-        <button onclick="refreshAd()">Refresh Ad</button>
+        <button onclick="loadAd()">Refresh Ad</button>
     </div>
 
     <footer>© 2025 Easy Earning Bot</footer>
 
     <script>
-        // Optional: show a pop-up welcome message
-        // alert("Welcome! Watch ads to earn rewards.");
-
-        // Refresh ad function
-        function refreshAd() {
+        function loadAd() {
             const adBox = document.getElementById('adBox');
-            adBox.innerHTML = `<script src="//libtl.com/sdk.js" data-zone="9961805" data-sdk="show_9961805"></script>`;
-            alert("Ad refreshed! Keep watching to earn.");
+            adBox.innerHTML = ""; // Clear previous ad
+
+            // Create script element with your Monetag code
+            const script = document.createElement('script');
+            script.src = "//libtl.com/sdk.js";
+            script.setAttribute('data-zone', '9961805');
+            script.setAttribute('data-sdk', 'show_9961805');
+            script.async = true;
+
+            adBox.appendChild(script);
         }
+
+        // Load ad automatically on page load
+        window.onload = loadAd;
     </script>
 </body>
 </html>
