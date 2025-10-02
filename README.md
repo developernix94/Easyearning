@@ -1,154 +1,117 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-    <!-- meta tag -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy Earning Bot</title>
-    
-    <!-- css & font -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <style>
-        :root {
-            --primary-color: #2ed914;
-            --primary-hover: #3bff21;
-            --secondary-color: #2a2a2e;
-            --background-color: #1c1c1f;
-            --text-color: #f0f0f0;
-            --text-muted-color: #a0a0a0;
-            --accent-color: #ff8c00;
-            --card-bg: #252528;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            margin: 0; 
-            padding: 0; 
-            background-color: var(--background-color); 
-            color: var(--text-color);
-            font-family: 'Segoe UI', 'Roboto', sans-serif; 
-            display: flex; 
-            justify-content: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            height: 100vh; 
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .container {
-            width: 100%; max-width: 400px;
-            height: 100%;
-            background: var(--background-color);
-            display: flex; flex-direction: column;
-            overflow: hidden; position: relative;
+
+        h1 {
+            margin-top: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
         }
-        main { flex-grow: 1; overflow-y: auto; padding: 20px; padding-bottom: 80px; }
-        .view { display: none; }
-        .view.active { display: block; }
-        /* Simplified styles... keep your previous CSS */
+
+        .welcome-msg {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .ad-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ad-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .ad-box {
+            width: 100%;
+            min-height: 200px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #fff;
+            color: #2575fc;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: auto;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
     </style>
-    
-    <!-- Telegram SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Monetag SDK -->
-    <script src='//libtl.com/sdk.js' data-zone='9961805' data-sdk='show_9961805'></script>
 </head>
 <body>
+    <h1>Easy Earning Bot</h1>
 
-    <!-- MAIN CONTAINER -->
-    <div class="container">
-        <main id="main-content">
-            <!-- HOME VIEW -->
-            <div id="home-view" class="view active">
-                <div class="user-header-card">
-                    <div class="user-avatar" id="profile-pic">EE</div>
-                    <div class="user-info">
-                        <h2 class="username" id="username">Loading...</h2>
-                        <p class="title">Welcome Back!</p>
-                    </div>
-                </div>
-                <div class="balance-card">
-                    <p class="label">Total Balance</p>
-                    <h1 class="balance-value" id="balance-value">৳0.00</h1>
-                    <p class="points-value"><i class="fa-solid fa-coins"></i> <span id="points-value">0</span> Points</p>
-                </div>
-                <h2 class="section-title">Quick Actions</h2>
-                <div class="task-card" onclick="showView('tasks-view')">
-                    <div class="task-icon"><i class="fa-solid fa-list-check"></i></div>
-                    <div class="task-details"><h3>View Tasks</h3><p>Watch ads and complete tasks to earn points.</p></div>
-                </div>
-                <div class="task-card" onclick="openWithdrawModal()">
-                    <div class="task-icon"><i class="fa-solid fa-wallet"></i></div>
-                    <div class="task-details"><h3>Withdraw Funds</h3><p>Request to withdraw your available balance.</p></div>
-                </div>
-            </div>
-
-            <!-- TASKS VIEW -->
-            <div id="tasks-view" class="view">
-                <h2 class="section-title">Earning Tasks</h2>
-                <div class="task-card" onclick="showRewardedInterstitial()">
-                    <div class="task-icon"><i class="fa-solid fa-rectangle-ad"></i></div>
-                    <div class="task-details"><h3>Rewarded Ad</h3><p>Watch a full-screen ad to earn rewards.</p></div>
-                </div>
-            </div>
-        </main>
-
-        <nav class="footer-nav">
-            <button class="nav-button active" onclick="showView('home-view')"><i class="icon fa-solid fa-house"></i>Home</button>
-            <button class="nav-button" onclick="showView('tasks-view')"><i class="icon fa-solid fa-list-check"></i>Tasks</button>
-        </nav>
+    <!-- Welcome message -->
+    <div class="welcome-msg" id="welcome">
+        Welcome! Watch ads below to earn rewards.
     </div>
-  
-    <!-- JS -->
+
+    <div class="ad-container">
+        <div class="ad-title">Your Ad</div>
+        <div class="ad-box" id="adBox">
+            <!-- Monetag ad script -->
+            <script src="//libtl.com/sdk.js" data-zone="9961805" data-sdk="show_9961805"></script>
+        </div>
+        <button onclick="refreshAd()">Refresh Ad</button>
+    </div>
+
+    <footer>© 2025 Easy Earning Bot</footer>
+
     <script>
-        let points = 0;
-        let balance = 0.00;
-        let tgUser = null;
+        // Optional: show a pop-up welcome message
+        // alert("Welcome! Watch ads to earn rewards.");
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initApp();
-        });
-
-        function initApp() {
-            if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.ready();
-                Telegram.WebApp.expand();
-                tgUser = Telegram.WebApp.initDataUnsafe.user;
-            }
-            updateDisplay();
-        }
-
-        function showView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-        }
-
-        function updateDisplay() {
-            document.getElementById('points-value').textContent = points;
-            document.getElementById('balance-value').textContent = `৳${balance.toFixed(2)}`;
-        }
-
-        function grantReward() {
-            const rewardAmount = 2;
-            balance += rewardAmount;
-            points += 2;
-            updateDisplay();
-            alert(`✅ You earned ৳${rewardAmount.toFixed(2)}. Balance: ৳${balance.toFixed(2)}`);
-        }
-
-        // Monetag ad call
-        function showRewardedInterstitial() {
-            if (typeof window.show_9961805 !== 'function') {
-                return alert('Ad provider not ready. Try again later.');
-            }
-            window.show_9961805()
-                .then(grantReward)
-                .catch(e => {
-                    console.error('Ad error:', e);
-                    alert('Ad failed to load.');
-                });
-        }
-
-        function openWithdrawModal() {
-            alert("Withdrawal system coming soon!");
+        // Refresh ad function
+        function refreshAd() {
+            const adBox = document.getElementById('adBox');
+            adBox.innerHTML = `<script src="//libtl.com/sdk.js" data-zone="9961805" data-sdk="show_9961805"></script>`;
+            alert("Ad refreshed! Keep watching to earn.");
         }
     </script>
 </body>
