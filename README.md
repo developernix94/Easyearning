@@ -32,6 +32,12 @@
             margin: 20px 0;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {opacity: 0; transform: translateY(-20px);}
+            100% {opacity: 1; transform: translateY(0);}
         }
 
         .ad-container {
@@ -88,38 +94,35 @@
 <body>
     <h1>Easy Earning Bot</h1>
 
-    <!-- Welcome message -->
+    <!-- Animated Welcome Message -->
     <div class="welcome-msg">
         Welcome! Watch ads below to earn rewards.
     </div>
 
+    <!-- Ad Container -->
     <div class="ad-container">
         <div class="ad-title">Your Ad</div>
         <div class="ad-box" id="adBox">
-            <!-- Monetag ad will load here -->
+            <!-- Monetag ad -->
+            <script src="//libtl.com/sdk.js" data-zone="9961805" data-sdk="show_9961805"></script>
         </div>
-        <button onclick="loadAd()">Refresh Ad</button>
+        <button onclick="refreshAd()">Refresh Ad</button>
     </div>
 
     <footer>© 2025 Easy Earning Bot</footer>
 
     <script>
-        function loadAd() {
+        // Refresh ad function
+        function refreshAd() {
             const adBox = document.getElementById('adBox');
             adBox.innerHTML = ""; // Clear previous ad
-
-            // Create script element with your Monetag code
             const script = document.createElement('script');
             script.src = "//libtl.com/sdk.js";
             script.setAttribute('data-zone', '9961805');
             script.setAttribute('data-sdk', 'show_9961805');
             script.async = true;
-
             adBox.appendChild(script);
         }
-
-        // Load ad automatically on page load
-        window.onload = loadAd;
     </script>
 </body>
 </html>
