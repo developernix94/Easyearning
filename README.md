@@ -16,14 +16,12 @@
             margin: 0;
             padding: 20px;
         }
-
         h1 {
             margin-top: 40px;
             font-size: 2.5em;
             color: #ffcc00;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
-
         .welcome-msg {
             background: #292946;
             padding: 15px 25px;
@@ -33,7 +31,6 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
         .ad-container {
             width: 100%;
             max-width: 500px;
@@ -45,13 +42,11 @@
             flex-direction: column;
             align-items: center;
         }
-
         .ad-title {
             font-size: 1.3em;
             margin-bottom: 15px;
             color: #00ffd5;
         }
-
         .ad-box {
             width: 100%;
             min-height: 200px;
@@ -62,7 +57,6 @@
             justify-content: center;
             margin-bottom: 20px;
         }
-
         button {
             background: #ffcc00;
             color: #1e1e2f;
@@ -74,12 +68,10 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
         button:hover {
             background: #ffd633;
             transform: scale(1.05);
         }
-
         footer {
             margin-top: auto;
             font-size: 0.9em;
